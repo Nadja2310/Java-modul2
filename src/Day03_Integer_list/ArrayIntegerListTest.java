@@ -64,7 +64,17 @@ class ArrayIntegerListTest {
     }
 
     @Test
-    void get_index15_value0() {
+    void get_indexMinus1_Error() {
+        ArrayIntegerList list = createArrayList();
+        try {
+            list.get(-1);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+            assertTrue(true);
+        }
+    }
+    @Test
+    void get_index10_value0() {
         ArrayIntegerList list = createArrayList();
         try {
             list.get(10);
@@ -76,23 +86,59 @@ class ArrayIntegerListTest {
     }
 
     @Test
-    void set_index10_value56() {
+    void set_index6_value56() {
         ArrayIntegerList list = createArrayList();
         list.set(6, 56);
         assertEquals(list.source[6], 56);
     }
 
     @Test
-    void set_index11_value56() {
+    void set_indexMinus1_Error() {
         ArrayIntegerList list = createArrayList();
-        list.set(1, 1111);
-        assertEquals(list.get(1), 1111);
+
+        //assertEquals(list.get(1), 1111);
+        try {
+            list.set(-1, 1111);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    void set_index10_ErrorSize9() {
+        ArrayIntegerList list = createArrayList();
+
+        try {
+            list.set(10, 2222);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+            assertTrue(true);
+        }
     }
 
     @Test
     void removeById_index4_size9() {
         ArrayIntegerList list = createArrayList();
         assertEquals(list.removeById(4), 812);
+        System.out.println(Arrays.toString(list.source));
+    }
+
+    @Test
+    void removeById_index9_endArray() {
+        ArrayIntegerList list = createArrayList();
+        assertEquals(list.removeById(9), 5);
+    }
+
+    @Test
+    void removeById_indexMinus1_Error() {
+        ArrayIntegerList list = createArrayList();
+        try {
+            list.removeById(-1);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+            assertTrue(true);
+        }
     }
 
     @Test
@@ -106,6 +152,14 @@ class ArrayIntegerListTest {
         ArrayIntegerList list = createArrayList();
         System.out.println(Arrays.toString(list.source));
         assertEquals(list.size(), 10);
+        list.clear();
+        assertEquals(list.size(), 0);
+
+    }
+
+    @Test
+    void clear_size0() {
+        ArrayIntegerList list = new ArrayIntegerList();
         list.clear();
         assertEquals(list.size(), 0);
 

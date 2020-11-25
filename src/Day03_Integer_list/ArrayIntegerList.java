@@ -17,8 +17,8 @@ public class ArrayIntegerList implements IntegerList {
             increaseCapacity();
 
         source[size++] = element;
-     //   source[size] = element;
-     //   size++;
+        //   source[size] = element;
+        //   size++;
     }
 
     void increaseCapacity() {
@@ -46,10 +46,20 @@ public class ArrayIntegerList implements IntegerList {
 
     @Override
     public int removeById(int index) {
-        int oldValue=source[index];
-        source[index]=source[size-1];
-        source[size-1]=0;
-        size--;
+        if (index >= size || index < 0)
+            throw new IndexOutOfBoundsException();
+
+        int oldValue = source[index];
+        if (index == size - 1) {
+            size--;
+            source[size - 1] = 0;
+        } else {
+            for (int i = index; i < size - 2; i++) {
+                source[i] = source[i + 1];
+            }
+            source[size - 1] = 0;
+            size--;
+        }
         return oldValue;
     }
 
